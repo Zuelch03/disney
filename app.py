@@ -6,11 +6,20 @@ import webbrowser
 
 # Set page config to make app mobile-friendly and responsive
 st.set_page_config(
-    page_title="My Streamlit App",
+    page_title="Disney Movie Night",
     page_icon=":smiley:",
     layout="wide",
     initial_sidebar_state="auto",
 )
+
+page_bg_img = """
+<style>
+[data-testid="stAppViewContainer"]{
+    background_color: #123cd0;
+}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 
 
@@ -24,7 +33,20 @@ st.markdown(
         body {
             font-size: 14px;
             padding: 10px;
+            text-align: center;
         }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Add CSS to center all elements in the app
+st.markdown(
+    """
+    <style>
+    body {
+        text-align: center;
     }
     </style>
     """,
@@ -37,7 +59,7 @@ st.markdown(
 disney_movies = {
     "Snow White and the Seven Dwarfs": {
         "trailer_id": "5fzZFQBXSLM",
-        "recipe_url": "https://mealplanningblueprints.com/blog/disney-movie-night-themed-dinner-recipe-ideas-snow-white/",
+        "recipe_url": "https://i.pinimg.com/originals/64/30/1f/64301f3b204a6387db456968ce592783.jpg",
         "image_url": "https://media1.tenor.com/images/a5e8183f7fb0fd2453efcc60435e15e4/tenor.gif?itemid=3917339"
     },
     "Cinderella": {
@@ -47,12 +69,12 @@ disney_movies = {
     },
     "Sleeping Beauty": {
         "trailer_id": "CfsyUyi_FJM",
-        "recipe_url": "https://mealplanningblueprints.com/blog/disney-movie-night-themed-dinner-recipe-ideas-sleeping-beauty/",
+        "recipe_url": "https://happiestmemoriesonearth.blogspot.com/2018/09/disney-meal-34-sleeping-beauty.html",
         "image_url": "https://media.giphy.com/media/xDMb2lcyXeoFO/giphy.gif"
     },
     "The Little Mermaid": {
         "trailer_id": "nPE0f-MB_bQ",
-        "recipe_url": "https://mealplanningblueprints.com/blog/disney-movie-night-themed-dinner-recipe-ideas-little-mermaid/",
+        "recipe_url": "http://mommyandthings.blogspot.com/2013/09/disney-movie-night-little-mermaid.html",
         "image_url": "https://th.bing.com/th/id/OIP.LEi6I8Qgl6jfC8a5Jm3i-QHaEG?pid=ImgDet&rs=1"
     },
     "Beauty and the Beast": {
@@ -65,6 +87,12 @@ disney_movies = {
         "recipe_url": "https://mealplanningblueprints.com/blog/disney-movie-night-themed-dinner-recipe-ideas-aladdin/",
         "image_url": "https://data.whicdn.com/images/307549180/original.gif"
     },
+    
+    "Toy Sory": {
+        "trailer_id": "v-PjgYDrg70",
+        "recipe_url": "https://happiestmemoriesonearth.blogspot.com/2018/08/disney-meal-22-toy-story.html",
+        "image_url": "https://media.giphy.com/media/kUiVangO4Yf8Q/giphy.gif"
+    },
 }
 
 
@@ -75,11 +103,16 @@ disney_movies = {
 def app():
     st.title("Disney Movie Night Generator")
     
+    
+    
     image = Image.open("disneylogo.jpg")
-    st.image(image, width=270)
+    st.image(image, width=200, use_column_width=True)
+
+    
 
     
     st.write("Click the button below to get a random Disney movie title:")
+    
 
     # Define a button that generates a random movie title and plays its trailer
     if st.button("Generate Movie"):
